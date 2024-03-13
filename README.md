@@ -1,8 +1,11 @@
+
+## Projeto Plataforma Comunicação de Comunicação 
+
 De acordo com o escopo desse projeto, foram levantados os seguintes requisitos funcionais e não funcionais, listados na figura a seguir:
 
 ![Requisitos Funcionais e Não Funcionais](./Images/RequisitosNFN.png)
 
-Para modelar o banco de dados, foi criadada a tabela nomeada de Agendamento, com os seguintes atributos:
+Para modelar o banco de dados, foi criadada a tabela nomeada **Agendamento**, com os seguintes atributos:
 
 - id: PRIMARY KEY
 - data_hora_envio: TIMESTAMP
