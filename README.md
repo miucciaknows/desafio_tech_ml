@@ -1,6 +1,14 @@
 
 ## Projeto Plataforma Comunicação de Comunicação 
 
+### Resumo do Escopo do projeto
+Desenvolvimento três endpoints relacionados ao envio de comunicações da empresa: agendamento, consulta e cancelamento.
+Os agendamentos serão armazenados em um banco de dados e enviados para uma fila de mensagens. As APIs devem seguir o modelo RESTful, utilizar JSON e realizar testes unitários.
+O desenvolvimento será realizado em Python, com suporte para PostgreSQL como banco de dados e RabbitMQ como sistema de mensageria. 
+
+
+
+### Requisitos Funcionais e Não Funcionais do Projeto
 De acordo com o escopo desse projeto, foram levantados os seguintes requisitos funcionais e não funcionais, listados na figura a seguir:
 
 ![Requisitos Funcionais e Não Funcionais](./Images/RequisitosNFN.png)
@@ -12,6 +20,8 @@ Para modelar o banco de dados, foi criadada a tabela nomeada **Agendamento**, co
 - destinario:TEXT
 - mensagem: TEXT
 - status: TEXT DEFAULT `agendado`
+
+### Arquitetura
 
 Para o desenvolvimento da task, após o levantamento de requisitos, foi implementada a seguinte arquitetura:
 
@@ -39,7 +49,7 @@ Explicação:
 
 5-b a aplicação exibe a resposta da solicitação
 
-**Estrutura do diretorio**
+### Estrutura do diretorio
 
 ```
 .
