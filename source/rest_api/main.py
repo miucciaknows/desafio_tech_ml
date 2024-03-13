@@ -1,21 +1,33 @@
 from flask import Flask, request, jsonify
 import json
+# Importando a classe DatabaseConfig para configurar o banco de dados
 from db.config import DatabaseConfig
+# Importando a classe RabbitMQ para configurar a mensageria
 from rabbitmq.rabbitmq import RabbitMQ
-import json
-from db.config import DatabaseConfig
-from rabbitmq.rabbitmq import RabbitMQ
+# Importando o modelo AgendamentoRequest
 from models.request_model import AgendamentoRequest
 
 class CommunicationScheduler:
+    """
+    Classe responsável por agendar, consultar e cancelar comunicações.
+    """
     def __init__(self):
+        """
+        Inicializndo  a aplicação Flask, configurando o banco de dados e a mensageria,
+        Criando as rotas e definindo os métodos para agendar, consultar e cancelar comunicações.
+        """
+        # Iniciando a aplicação Flask
         self.app = Flask(__name__)
+        # Configurando o banco de dados
         self.db_config = DatabaseConfig()
+        # Configurando da mensageria
         self.rabbitmq = RabbitMQ()
-
+        
+        # Estabelecendo a conexão com o banco de dados e verificando se a tabela de agendamentos existe
         self.db_connection = self.db_config.data_base_connection()
         self.db_config.verify_table_agendamentos(self.db_connection)
 
+        # Estabelecendo a conexão com a mensageria e criando a fila 'comunicacoes_queue'
         self.connection = self.rabbitmq.rabbitmq_connection()
         self.channel = self.connection.channel()
         self.rabbitmq.create_queue(self.channel, 'comunicacoes_queue')
@@ -23,13 +35,21 @@ class CommunicationScheduler:
         self.routes()
 
     def routes(self):
+        """
+        Definindo as rotas da aplicação para agendar, consultar e cancelar comunicações.
+        """
         @self.app.route('/agendamento', methods=['POST'])
         def agendar_comunicacao():
+            """
+            Função para Rota para agendar uma comunicação.
+            """
             try:
+                # Obtendo os dados da solicitação
                 request_data = AgendamentoRequest(**request.json)
             except ValueError as e:
                 return jsonify({'erro': 'Erro de validação: {}'.format(str(e))}), 400
 
+            # Inserindo o agendamento no banco de dados
             try:
                 with self.db_connection.cursor() as database_cursor:
                     database_cursor.execute("INSERT INTO agendamentos (data_hora_envio, destinatario, mensagem) VALUES (%s, %s, %s)",
@@ -38,6 +58,7 @@ class CommunicationScheduler:
             except Exception as e:
                 return jsonify({'erro': f"Erro ao inserir agendamento no banco de dados: {e}"}), 500
 
+            # Enviando o agendamento para a fila da mensageria
             self.channel.basic_publish(exchange='',
                                   routing_key='comunicacoes_queue',
                                   body=json.dumps(request_data.model_dump()))
@@ -45,8 +66,13 @@ class CommunicationScheduler:
             return jsonify({'mensagem': 'Agendamento realizado com sucesso'}), 201
 
         @self.app.route('/consulta/<destinatario>', methods=['GET'])
+        
         def consultar_comunicacao(destinatario):
+            """
+            Função para Rota de consultar comunicações por destinatário.
+            """
             try:
+                # Verificando se existem comunicações para o destinatário especificado
                 with self.db_connection.cursor() as cur:
                     cur.execute("SELECT * FROM agendamentos WHERE destinatario = %s", (destinatario,))
                     communications_recipient = cur.fetchall()
@@ -56,12 +82,17 @@ class CommunicationScheduler:
             if not communications_recipient:
                 return jsonify({'mensagem': 'Nenhuma comunicação encontrada para o destinatário'}), 404
 
+
+            # Convertendo as comunicações em um formato de dicionário
             comunicacoes_dict = [{'id': row[0], 'data_hora_envio': row[1], 'destinatario': row[2], 'mensagem': row[3], 'status': row[4]} for row in communications_recipient]
 
             return jsonify(comunicacoes_dict), 200
 
         @self.app.route('/cancelamento/<int:id>', methods=['DELETE'])
         def cancelar_comunicacao(id):
+            """
+            Função pára Rota de cancelar uma comunicação.
+            """
             try:
                 with self.db_connection.cursor() as database_cursor:
                     database_cursor.execute("SELECT * FROM agendamentos WHERE id = %s", (id,))
@@ -77,6 +108,9 @@ class CommunicationScheduler:
             return jsonify({'mensagem': 'Cancelamento realizado com sucesso'}), 200
 
     def run(self):
+        """
+        Iniciando a aplicação Flask.
+        """
         self.app.run(debug=True)
 
 if __name__ == '__main__':
