@@ -1,11 +1,10 @@
-Arquitetura inicial 
+De acordo com o escopo desse projeto, foram levantados os seguintes requisitos funcionais e não funcionais, listados na figura a seguir:
 
+![Requisitos Funcionais e Não Funcionais](./Images/RequisitosNFN.png)
 
-de acordo com os requisitos iniciais, foi feito o seguinte modelo de banco de dados:
+Para modelar o banco de dados, foi criadada a tabela nomeada de Agendamento, com os seguintes atributos:
 
-Tabela necessária
-Nome: Agendamento
-Atributos: - id: PRIMARY KEY
+- id: PRIMARY KEY
 - data_hora_envio: TIMESTAMP
 - destinario:TEXT
 - mensagem: TEXT
