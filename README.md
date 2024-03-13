@@ -97,7 +97,7 @@ Através do menu lateral, acesse as configurações e clique em database, use su
 
 ### Entendendo as rotas da aplicação
 
-- /agendamento 
+#### /agendamento 
   
 Tipo de rota: POST
 
@@ -121,7 +121,7 @@ Resultado esperado:
 }
 ```
 
-- /consulta/<destinatario>
+#### /consulta/<destinatario>
 
 Tipo de rota: GET
 
@@ -144,7 +144,7 @@ Resultado esperado:
 ```
 
 
-**cancelamento/<int:id>**
+#### cancelamento/<int:id>**
 
 Exemplo de requisição: http://127.0.0.1:5000/cancelamento/31
 

@@ -1,17 +1,15 @@
-# Use a imagem base do Python
-FROM python:3.9
+FROM python:3.12.0-slim
 
-
-WORKDIR /app
+WORKDIR /rest_api
 
 
 COPY . .
 
 
-RUN requirements.txt
+RUN pip install - upgrade pip 
 
+RUN pip install -r requirements.txt
 
-EXPOSE 5000
 
 
 CMD ["python", "main.py"]
