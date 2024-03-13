@@ -31,6 +31,7 @@ Explicação:
 1 - A comunicação é feita com a aplicação, onde é escolhido qual operação realizar: Realizar Agendamento, Consultar Informação, Cancelar Agendamento
 
 2 - A escolha é enviada para API REST
+
 **Se a operação for do tipo: Realizar Agendamento, ela será 3.a**
 
 3.a A solicitação é enviada para o RabbitMQ onde fica em uma fila para em seguida, ser registrada no banco de dados relacional
