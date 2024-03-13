@@ -77,10 +77,80 @@ Explicação:
 
 ### Configuração do ambiente de desenvolvimento
 
-O aquivo `.env.example` deve ser preenchido com as proprias credenciais do parceiro/cliente e deve ser renomeado para `env`.
+O aquivo `.env.example` deve ser preenchido com suas proprias credenciais e deve ser renomeada para `env`.
+
+#### Supabase (Banco de dados)
+
+Para uso do postgresql, foi criado um banco através do supbase (https://supabase.com/)
+
+Para utilizado:
+1. Realize o cadastro ou faça o login caso já possua uma conta
+2. Na página inicial, clique em `New Project`
+3. Agora preencha o formulario com informações do seu projeto, para esse projeto, o nome escolhido foi `ml_bd`
+4. Em seguida, escolha uma senha
+5. A localização do seu banco de dados (escolha a região mais próxima de você por questões de latência)
+6. Em seguida um plano
+7. Clique em `Create new project`
+   
+Através do menu lateral, acesse as configurações e clique em database, use suas credenciais para preencher o arquivo que você renomeou como `env`
 
 
 ### Entendendo as rotas da aplicação
+
+- /agendamento 
+  
+Tipo de rota: POST
+
+Exemplo de requisição: http://127.0.0.1:5000/agendamento
+
+Corpo JSON:
+`
+{
+	"data_hora_envio": "2024-03-12T10:44:40",
+	"destinatario": "nathalia@mail.com",
+	"mensagem": "testando agendamento de comunicação"
+}
+`
+
+Resultado esperado:
+`
+{
+	"mensagem": "Agendamento realizado com sucesso"
+}
+`
+
+- /consulta/<destinatario>
+
+Tipo de rota: GET
+
+Exemplo de requisição:
+`
+http://127.0.0.1:5000/consulta/nathalia@mail.com
+`
+
+Resultado esperado:
+
+`
+	{
+		"data_hora_envio": "Tue, 12 Mar 2024 10:44:40 GMT",
+		"destinatario": "nathalia@mail.com",
+		"id": 33,
+		"mensagem": "testando agendamento de comunicação",
+		"status": "agendado"
+	}
+`
+
+
+- cancelamento/<int:id>
+
+Exemplo de requisição: http://127.0.0.1:5000/cancelamento/31
+
+Resultado esperado: 
+`
+{
+	"mensagem": "Cancelamento realizado com sucesso"
+}
+`
 
 
 ### Meios de utilizar nossa aplicação de forma local
