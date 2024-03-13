@@ -73,3 +73,20 @@ Explicação:
         └── test.py
         ├── requirements.txt
 ```
+
+
+### Configuração do ambiente de desenvolvimento
+
+O aquivo `.env.example` deve ser preenchido com as proprias credenciais do parceiro/cliente e deve ser renomeado para `env`.
+
+
+### Entendendo as rotas da aplicação
+
+
+### Meios de utilizar nossa aplicação de forma local
+
+
+#### Utilizando Docker desktop
+
+#### Utilizando Visual Studio Code ou o seu editor preferido.
+
