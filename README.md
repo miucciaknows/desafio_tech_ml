@@ -104,20 +104,22 @@ Tipo de rota: POST
 Exemplo de requisição: http://127.0.0.1:5000/agendamento
 
 Corpo JSON:
-`
+```
+.
 {
 	"data_hora_envio": "2024-03-12T10:44:40",
 	"destinatario": "nathalia@mail.com",
 	"mensagem": "testando agendamento de comunicação"
 }
-`
+```
 
 Resultado esperado:
-`
+```
+.
 {
 	"mensagem": "Agendamento realizado com sucesso"
 }
-`
+```
 
 - /consulta/<destinatario>
 
@@ -130,7 +132,8 @@ http://127.0.0.1:5000/consulta/nathalia@mail.com
 
 Resultado esperado:
 
-`
+```
+.
 	{
 		"data_hora_envio": "Tue, 12 Mar 2024 10:44:40 GMT",
 		"destinatario": "nathalia@mail.com",
@@ -138,25 +141,81 @@ Resultado esperado:
 		"mensagem": "testando agendamento de comunicação",
 		"status": "agendado"
 	}
-`
+```
 
 
-- cancelamento/<int:id>
+**cancelamento/<int:id>**
 
 Exemplo de requisição: http://127.0.0.1:5000/cancelamento/31
 
 Resultado esperado: 
-`
+
+.
 {
 	"mensagem": "Cancelamento realizado com sucesso"
 }
 `
 
 
-### Meios de utilizar nossa aplicação de forma local
+### Meios de utilizar a aplicação de forma local
 
 
 #### Utilizando Docker desktop
 
+Essa aplicação conta com uma imagem **Docker** dentro de seu diretório `/source/rest_api`
+
+**-> É necessário que você possua Docker instalado em sua maquina.**
+
+-> Para mais informações sobre Docker, você pode consultar os links abaixo:
+-  O que é docker? https://www.redhat.com/pt-br/topics/containers/what-is-docker
+-  Documentação oficial Docker (Disponivel em Inglês) https://docs.docker.com
+
+No diretório do projeto, `/rest_api` e execute seguinte comando:
+
+`docker build . -t app`
+
+Com este comando, estamos construindo uma imagem em sua na pasta atual e utilizar a tag **br-nommad**
+
+Para testar sua aplicação localmente, no mesmo terminal execute o seguinte comando.
+
+`docker run -d -p 5000:5000 app`
+
+******************************************************************************************************************************
+-d Este comando executa o conteiner no modo desacoplado (-d),sem bloquear o seu terminal.
+
+-p Este comando especifica as portas a serem utilizadas na aplicação 8000 na porta interna e externa do conteiner.
+
+******************************************************************************************************************************
+
+Para parar sua aplicação, execute o seguinte comando em seu terminal:
+
+`docker kill <PRIMEIROS_NUMEROS_DO_ID_DA_APLICACAO>`
+
+**-> Para pegar os numeros do id da sua aplicação execute `docker ps`**
+
+
 #### Utilizando Visual Studio Code ou o seu editor preferido.
+
+Ao abrir o seu projeto no seu editor, execute o segundo comando:
+
+para versões do Python 3
+`pip3 install -r requirements.txt`
+
+ou
+
+Para versões do Python <3:
+`pip install -r requirements.txt.`
+
+Em seguida execute:
+
+`python3 main.py`
+
+ou 
+
+`python main.py`
+
+Utilize o Insomia ou uma aplicação de uma preferência para testar as rodas com base na saída.
+
+-> Para saber mais sobre o Insomia: https://docs.insomnia.rest (Disponível em Inglês)
+
 
