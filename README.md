@@ -38,7 +38,7 @@ Explicação:
 
 **Estrutura do diretorio**
 
-.
+`
 ├── Images
 │   ├── Arquitetura.png
 │   ├── Diagrama_De_Classe.png
@@ -58,3 +58,4 @@ Explicação:
         ├── rabbitmq
         │   └── rabbitmq.py
         └── test.py
+        `
