@@ -1,7 +1,13 @@
 import psycopg2
 
 class InitialDatabaseConfig:
+    """
+    Configurações iniciais do banco de dados.
+    """
     def create_database_agendamentos(self, conn):
+        """
+        Cria a tabela 'agendamentos' no banco de dados.
+        """
         try:
             with conn.cursor() as database_cursor:
                 database_cursor.execute("""
