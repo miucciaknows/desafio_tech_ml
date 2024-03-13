@@ -3,12 +3,21 @@ import json
 
 from main import CommunicationScheduler
 
-class TestFlaskApp(unittest.TestCase):
+class TestApp(unittest.TestCase):
+    """
+    Classe de teste para a aplicação do arquivo main.py
+    """
     def setUp(self):
+        """
+        Configuração inicial para os testes.
+        """
         self.app = CommunicationScheduler().app.test_client()
         self.app.testing = True
 
     def test_agendamento(self):
+        """
+        Testando o endpoint de agendamento de comunicação.
+        """
         payload = {
             'data_hora_envio': '2024-03-12 10:00:00',
             'destinatario': 'exemplo@example.com',
@@ -26,6 +35,9 @@ class TestFlaskApp(unittest.TestCase):
         print("Teste de agendamento com campos ausentes bem-sucedido.")
 
     def test_consulta(self):
+        """
+        Testando o endpoint de consulta de comunicação.
+        """
         recipient = 'exemplo@example.com'
         response = self.app.get(f'/consulta/{recipient}')
         self.assertEqual(response.status_code, 200)
@@ -37,6 +49,9 @@ class TestFlaskApp(unittest.TestCase):
         print("Teste de consulta para destinatário fulano.")
     
     def test_cancelamento(self):
+        """
+        Testando o endpoint de cancelamento de comunicação.
+        """
         id_comunicacao = 9999  
         response = self.app.delete(f'/cancelamento/{id_comunicacao}')
         self.assertEqual(response.status_code, 404)
