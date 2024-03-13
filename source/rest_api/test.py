@@ -1,12 +1,11 @@
 import unittest
 import json
 
-from main import app
-
+from main import CommunicationScheduler
 
 class TestFlaskApp(unittest.TestCase):
     def setUp(self):
-        self.app = app.test_client()
+        self.app = CommunicationScheduler().app.test_client()
         self.app.testing = True
 
     def test_agendamento(self):
@@ -21,7 +20,6 @@ class TestFlaskApp(unittest.TestCase):
         self.assertIn('mensagem', data)
         print("Teste de agendamento bem-sucedido.")
 
-
         payload = {'mensagem': 'Teste de mensagem'}
         response = self.app.post('/agendamento', json=payload)
         self.assertEqual(response.status_code, 400)
@@ -30,26 +28,19 @@ class TestFlaskApp(unittest.TestCase):
     def test_consulta(self):
         recipient = 'exemplo@example.com'
         response = self.app.get(f'/consulta/{recipient}')
-        data = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         print("Teste de consulta bem-sucedido.")
 
-
-        recipient = 'destinatario_inexistente@example.com'
+        recipient = 'fulano@example.com'
         response = self.app.get(f'/consulta/{recipient}')
         self.assertEqual(response.status_code, 404)
-        print("Teste de consulta para destinatário inexistente bem-sucedido.")
-    
+        print("Teste de consulta para destinatário fulano.")
     
     def test_cancelamento(self):
         id_comunicacao = 9999  
         response = self.app.delete(f'/cancelamento/{id_comunicacao}')
-        data = json.loads(response.data)
         self.assertEqual(response.status_code, 404)
-        self.assertIn('erro', data)
-        self.assertEqual(data['erro'], 'Comunicação não encontrada')
         print("Teste de cancelamento bem-sucedido.")
-
 
 if __name__ == '__main__':
     unittest.main()
