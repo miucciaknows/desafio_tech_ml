@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify
 import json
 from db.config import data_base_connection, verify_table_agendamentos
 from rabbitmq.rabbitmq import rabbitmq_connection, create_queue
+from models.request_model import AgendamentoRequest
 
 app = Flask(__name__)
 
@@ -17,27 +18,22 @@ create_queue(channel, 'comunicacoes_queue')
 
 @app.route('/agendamento', methods=['POST'])
 def agendar_comunicacao():
-    request_data = request.json
-
-    if not all(key in request_data for key in ('data_hora_envio', 'destinatario', 'mensagem')):
-        return jsonify({'erro': 'Campos obrigatórios ausentes'}), 400
-
-    if not isinstance(request_data.get('data_hora_envio'), str) or \
-       not isinstance(request_data.get('destinatario'), str) or \
-       not isinstance(request_data.get('mensagem'), str):
-        return jsonify({'erro': 'Os campos devem ser strings'}), 400
+    try:
+        request_data = AgendamentoRequest(**request.json)
+    except ValueError as e:
+        return jsonify({'erro': 'Erro de validação: {}'.format(str(e))}), 400
 
     try:
         with db_connection.cursor() as database_cursor:
             database_cursor.execute("INSERT INTO agendamentos (data_hora_envio, destinatario, mensagem) VALUES (%s, %s, %s)",
-                        (request_data['data_hora_envio'], request_data['destinatario'], request_data['mensagem']))
+                                    (request_data.data_hora_envio, request_data.destinatario, request_data.mensagem))
             db_connection.commit()
     except Exception as e:
         return jsonify({'erro': f"Erro ao inserir agendamento no banco de dados: {e}"}), 500
 
     channel.basic_publish(exchange='',
                           routing_key='comunicacoes_queue',
-                          body=json.dumps(request_data))
+                          body=json.dumps(request_data.model_dump()))
 
     return jsonify({'mensagem': 'Agendamento realizado com sucesso'}), 201
 
