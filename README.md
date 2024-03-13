@@ -44,9 +44,7 @@ Explicação:
 │   ├── Arquitetura.png
 │   ├── Diagrama_De_Classe.png
 │   └── RequisitosNFN.png
-├── READM2E.md
 ├── README.md
-├── requirements.txt
 └── source
     └── rest_api
         ├── README.md
@@ -59,4 +57,5 @@ Explicação:
         ├── rabbitmq
         │   └── rabbitmq.py
         └── test.py
+        ├── requirements.txt
 ```
