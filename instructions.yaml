@@ -1,9 +1,0 @@
-version: '3.8'
-
-services:
-  my_service:
-    image: python:3.12.0-slim
-    working_dir: /rest_api
-    command: bash -c "pip install --upgrade pip && pip install -r requirements.txt && python main.py"
-    volumes:
-      - .:/rest_api
