@@ -99,11 +99,12 @@ Através do menu lateral, acesse as configurações e clique em database, use su
 
 #### /agendamento 
   
-Tipo de rota: POST
+**Tipo de rota: POST**
 
-Exemplo de requisição: http://127.0.0.1:5000/agendamento
+Exemplo de requisição: http://127.0.0.1:8080/agendamento
 
-Corpo JSON:
+**Corpo JSON:**
+
 ```
 .
 {
@@ -123,14 +124,12 @@ Resultado esperado:
 
 #### /consulta/<destinatario>
 
-Tipo de rota: GET
+**Tipo de rota: GET**
 
-Exemplo de requisição:
-`
-http://127.0.0.1:5000/consulta/nathalia@mail.com
-`
+Exemplo de requisição: http://127.0.0.1:8080/consulta/nathalia@mail.com
 
-Resultado esperado:
+
+**Resultado esperado:**
 
 ```
 .
@@ -146,16 +145,18 @@ Resultado esperado:
 
 #### cancelamento/<int:id>**
 
-Exemplo de requisição: http://127.0.0.1:5000/cancelamento/31
+Exemplo de requisição: http://127.0.0.1:8080/cancelamento/31
 
-Resultado esperado: 
+
+**Tipo de rota: DELETE**
+
+**Resultado esperado:**
 
 .
 {
 	"mensagem": "Cancelamento realizado com sucesso"
 }
 `
-
 
 ### Meios de utilizar a aplicação de forma local
 
@@ -172,18 +173,15 @@ Essa aplicação conta com uma imagem **Docker** dentro de seu diretório `/sour
 
 No diretório do projeto, `/rest_api` e execute seguinte comando:
 
-`docker build . -t app`
+`docker-compose up -d`
 
-Com este comando, estamos construindo uma imagem em sua na pasta atual e utilizar a tag **br-nommad**
 
-Para testar sua aplicação localmente, no mesmo terminal execute o seguinte comando.
-
-`docker run -d -p 5000:5000 app`
+O comando docker-compose up -d é usado para iniciar os serviços definidos em um arquivo docker-compose.yml em segundo plano (background).
 
 ******************************************************************************************************************************
--d Este comando executa o conteiner no modo desacoplado (-d),sem bloquear o seu terminal.
 
--p Este comando especifica as portas a serem utilizadas na aplicação 8000 na porta interna e externa do conteiner.
+up: Executa os serviços definidos no arquivo docker-compose.yml.
+-d (--detach): Executa os contêineres em segundo plano, o que significa que você pode continuar usando seu terminal para outras tarefas sem interromper a execução dos contêineres.
 
 ******************************************************************************************************************************
 
@@ -213,6 +211,8 @@ Em seguida execute:
 ou 
 
 `python main.py`
+
+#### Utilizando o insomia para testar a aplicação
 
 Utilize o Insomia ou uma aplicação de uma preferência para testar as rodas com base na saída.
 
