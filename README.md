@@ -69,9 +69,14 @@ Explicação:
 
 ```
 .
-├── Images
+├── Images # Imagems Utilizadas no README.md deste projeto
 │   ├── Arquitetura.png
 │   ├── Diagrama_De_Classe.png
+│   └── Insomnia01.png
+│   └── Insomnia02.png
+│   └── Insomnia03.png
+│   └── Insomnia04.png
+│   └── Insomnia05.png
 │   └── RequisitosNFN.png
 ├── README.md
 └── source
