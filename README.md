@@ -6,8 +6,6 @@ Desenvolvimento três endpoints relacionados ao envio de comunicações da empre
 Os agendamentos serão armazenados em um banco de dados e enviados para uma fila de mensagens. As APIs devem seguir o modelo RESTful, utilizar JSON e realizar testes unitários.
 O desenvolvimento será realizado em Python, com suporte para PostgreSQL como banco de dados e RabbitMQ como sistema de mensageria. 
 
-
-
 ### Requisitos Funcionais e Não Funcionais do Projeto
 De acordo com o escopo desse projeto, foram levantados os seguintes requisitos funcionais e não funcionais, listados na figura a seguir:
 
@@ -158,12 +156,10 @@ Exemplo de requisição: http://127.0.0.1:8080/cancelamento/31
 }
 `
 
-### Meios de utilizar a aplicação de forma local
+### Executando a aplicação
 
 
-#### Utilizando Docker desktop
-
-Essa aplicação conta com uma imagem **Docker** dentro de seu diretório `/source/rest_api`
+Essa aplicação conta com uma imagem **Docker** e um **docker-compose.yaml** dentro de seu diretório `/source/rest_api`
 
 **-> É necessário que você possua Docker instalado em sua maquina.**
 
@@ -185,37 +181,17 @@ up: Executa os serviços definidos no arquivo docker-compose.yml.
 
 ******************************************************************************************************************************
 
-Para parar sua aplicação, execute o seguinte comando em seu terminal:
-
-`docker kill <PRIMEIROS_NUMEROS_DO_ID_DA_APLICACAO>`
-
-**-> Para pegar os numeros do id da sua aplicação execute `docker ps`**
-
-
-#### Utilizando Visual Studio Code ou o seu editor preferido.
-
-Ao abrir o seu projeto no seu editor, execute o segundo comando:
-
-para versões do Python 3
-`pip3 install -r requirements.txt`
-
-ou
-
-Para versões do Python <3:
-`pip install -r requirements.txt.`
-
-Em seguida execute:
-
-`python3 main.py`
-
-ou 
-
-`python main.py`
-
 #### Utilizando o insomia para testar a aplicação
 
-Utilize o Insomia ou uma aplicação de uma preferência para testar as rodas com base na saída.
+No diretorio atual, na pasta Insomia, você encontra um arquivo com as três rotas da aplicação, prontas para uso.
+
+
 
 -> Para saber mais sobre o Insomia: https://docs.insomnia.rest (Disponível em Inglês)
 
 
+### Teste Unitario da aplicação
+
+Para executar o teste unitario da aplicação é importante que ela esteja rodando no docker para que a aplicação possa se comunicar com o RabbitMQ e o Banco de dados.
+
+Dentro do contexto: ./source/rest_api, execute no seu terminal: `python3 -m unittest test.py` ou `python -m unittest test.py` dependendo da versão de python em sua maquina.
