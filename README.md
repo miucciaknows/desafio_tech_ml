@@ -1,4 +1,3 @@
-
 - [Projeto Plataforma Comunicação de Comunicação](#projeto-plataforma-comunicação-de-comunicação)
   - [Resumo do Escopo do projeto](#resumo-do-escopo-do-projeto)
   - [Requisitos Funcionais e Não Funcionais do Projeto](#requisitos-funcionais-e-não-funcionais-do-projeto)
@@ -9,7 +8,7 @@
   - [Entendendo as rotas da aplicação](#entendendo-as-rotas-da-aplicação)
     - [/agendamento](#agendamento)
     - [/consulta/](#consulta)
-    - [cancelamento/int:id\*\*](#cancelamentointid)
+    - [cancelamento/int:id](#cancelamentointid)
   - [Executando a aplicação no Docker](#executando-a-aplicação-no-docker)
     - [Utilizando o Insomnia para testar a aplicação](#utilizando-o-insomnia-para-testar-a-aplicação)
   - [Teste Unitario da aplicação](#teste-unitario-da-aplicação)
@@ -146,8 +145,7 @@ Exemplo de requisição: <http://127.0.0.1:8080/consulta/nathalia@mail.com>
 
 **Resultado esperado:**
 
-```
-.
+``` 
  {
   "data_hora_envio": "Tue, 12 Mar 2024 10:44:40 GMT",
   "destinatario": "nathalia@mail.com",
@@ -157,7 +155,7 @@ Exemplo de requisição: <http://127.0.0.1:8080/consulta/nathalia@mail.com>
  }
 ```
 
-#### cancelamento/<int:id>**
+#### cancelamento/<int:id>
 
 Exemplo de requisição: <http://127.0.0.1:8080/cancelamento/31>
 
@@ -165,7 +163,7 @@ Exemplo de requisição: <http://127.0.0.1:8080/cancelamento/31>
 
 **Resultado esperado:**
 
-.
+`
 {
  "mensagem": "Cancelamento realizado com sucesso"
 }
@@ -226,4 +224,3 @@ Se tudo ocorrer bem, sua página deverá estar como a seguinte imagem:
 Para executar o teste unitario da aplicação é importante que ela esteja rodando no docker para que a aplicação possa se comunicar com o RabbitMQ e o Banco de dados.
 
 Dentro do contexto: ./source/rest_api, execute no seu terminal: `python3 -m unittest test.py` ou `python -m unittest test.py` dependendo da versão de python em sua maquina.
-
