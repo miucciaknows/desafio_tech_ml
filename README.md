@@ -26,27 +26,27 @@ Para o desenvolvimento da task, após o levantamento de requisitos, foi implemen
 ![Arquitetura](./Images/Arquitetura.png)
 
 Explicação:
-1 - A comunicação é feita com a aplicação, onde é escolhido qual operação realizar: Realizar Agendamento, Consultar Informação, Cancelar Agendamento
+1 - A comunicação é feita com a aplicação, onde há três rotas: Realizar Agendamento, Consultar Informação, Cancelar Agendamento
 
 2 - A escolha é enviada para API REST
 
-**Se a operação for do tipo: Realizar Agendamento, ela será 3.a**
+**Se a operação for do tipo: Realizar Agendamento, ela será 3-a, 4-a, 5-a e 6-a**
 
-3.a A solicitação é enviada para o RabbitMQ onde fica em uma fila para em seguida, ser registrada no banco de dados relacional
+**3.a** A solicitação é enviada para o RabbitMQ onde fica em uma fila para em seguida, ser registrada no banco de dados relacional
 
-4.a ser registrada no banco de dados relacional
+**4.a** O registro é feito no banco de dados
 
-5.a E então é enviada para api rest
+**5.a** E então é enviada para api rest
 
-6.a o resultado então chega na aplicação
+**6.a** o resultado da requisição é exibido  na aplicação
 
-**Se a operação for do tipo: Consultar informação, cancelar agendamento**
+**Se a operação for do tipo: Consultar informação ou cancelar agendamento, será 3-b, 4-b e 5-b**
 
-3-b a api rest envia uma solicitação para informação ser consultada no banco de dados
+**3-b** A api rest envia uma solicitação para informação ser consultada ou cancelada no banco de dados
 
-4-b a api rest retorna o resultado para a aplicação
+**4-b** A api rest retorna o resultado para a aplicação
 
-5-b a aplicação exibe a resposta da solicitação
+**5-b** O resultado da requisição é exibido  na aplicação
 
 ### Estrutura do diretorio
 

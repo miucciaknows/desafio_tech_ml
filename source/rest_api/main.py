@@ -15,7 +15,7 @@ class CommunicationScheduler:
     """
     Classe responsável por agendar, consultar e cancelar comunicações.
     """
-    def __init__(self, rabbitmq_host='rabbitmq'):
+    def __init__(self):
         """
         Inicializando a aplicação Flask, configurando o banco de dados e a mensageria,
         Criando as rotas e definindo os métodos para agendar, consultar e cancelar comunicações.
