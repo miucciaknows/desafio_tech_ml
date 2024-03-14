@@ -1,3 +1,4 @@
+# Importando modulos necesários para o projeto
 from flask import Flask, request, jsonify
 import json
 import pika
@@ -8,7 +9,6 @@ from db.config import DatabaseConfig
 # Importando a classe RabbitMQ para configurar a mensageria
 from rabbitmq.rabbitmq import RabbitMQ
 # Importando o modelo AgendamentoRequest
-from models.request_model import AgendamentoRequest
 from models.request_model import AgendamentoRequest
 
 class CommunicationScheduler:
