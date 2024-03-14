@@ -68,29 +68,35 @@ Explicação:
 ### Estrutura do diretorio
 
 ```
+
 .
 ├── Images # Imagems Utilizadas no README.md deste projeto
 │   ├── Arquitetura.png
 │   ├── Diagrama_De_Classe.png
-│   └── Insomnia01.png
-│   └── Insomnia02.png
-│   └── Insomnia03.png
-│   └── Insomnia04.png
-│   └── Insomnia05.png
+│   ├── Insomnia01.png
+│   ├── Insomnia02.png
+│   ├── Insomnia03.png
+│   ├── Insomnia04.png
+│   ├── Insomnia05.png
 │   └── RequisitosNFN.png
+├── Insomnia
+│   └── Insomnia_2024-03-14.json
+├── READM2E.md
 ├── README.md
 └── source
     └── rest_api
+        ├── Dockerfile # Dockerfile do projeto
         ├── db
         │   ├── config.py # Configurações para lidar com o banco de dados
         │   └── initial_config.py # Configurações para criar uma tabela caso não haja nada no banco de dados
-        ├── main.py # Aplicação 
+        ├── docker-compose.yml # Aplicação conternizada
+        ├── main.py  # Aplicação 
         ├── models
         │   └── request_model.py # Modelo de dados para representar uma solicitação de agendamento de envio de comunicação.
         ├── rabbitmq
         │   └── rabbitmq.py # Estabelecendo conexão com o servidor RabbitMQ.
-        └── test.py # Arquivo para realizar teste na aplicação
         ├── requirements.txt # Modulos utilizados no projeto
+        └── test.py # Arquivo para realizar teste na aplicação
 ```
 
 ### Configuração do ambiente de desenvolvimento
@@ -135,7 +141,6 @@ Exemplo de requisição: <http://127.0.0.1:8080/agendamento>
 Resultado esperado:
 
 ```
-.
 {
  "mensagem": "Agendamento realizado com sucesso"
 }
