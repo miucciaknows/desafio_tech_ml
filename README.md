@@ -76,17 +76,16 @@ Explicação:
 ├── README.md
 └── source
     └── rest_api
-        ├── README.md
         ├── db
-        │   ├── config.py
-        │   └── initial_config.py
-        ├── main.py
+        │   ├── config.py # Configurações para lidar com o banco de dados
+        │   └── initial_config.py # Configurações para criar uma tabela caso não haja nada no banco de dados
+        ├── main.py # Aplicação 
         ├── models
-        │   └── request_model.py
+        │   └── request_model.py # Modelo de dados para representar uma solicitação de agendamento de envio de comunicação.
         ├── rabbitmq
-        │   └── rabbitmq.py
-        └── test.py
-        ├── requirements.txt
+        │   └── rabbitmq.py # Estabelecendo conexão com o servidor RabbitMQ.
+        └── test.py # Arquivo para realizar teste na aplicação
+        ├── requirements.txt # Modulos utilizados no projeto
 ```
 
 ### Configuração do ambiente de desenvolvimento
