@@ -4,6 +4,7 @@
   - [Resumo do Escopo do projeto](#resumo-do-escopo-do-projeto)
   - [Requisitos Funcionais e Não Funcionais do Projeto](#requisitos-funcionais-e-não-funcionais-do-projeto)
   - [Arquitetura](#arquitetura)
+- [Diagrama de Classes da Aplicação](#diagrama-de-classes-da-aplicação)
   - [Estrutura do diretorio](#estrutura-do-diretorio)
   - [Configuração do ambiente de desenvolvimento](#configuração-do-ambiente-de-desenvolvimento)
     - [Supabase (Banco de dados)](#supabase-banco-de-dados)
@@ -45,6 +46,13 @@ Para modelar o banco de dados, foi criadada a tabela nomeada **Agendamento**, co
     3.b O registro é inserido e então encaminhado para a plataforma de mensageria (por exemplo, RabbitMQ).
 4. O resultado é retornado para a API REST.
 5. A API REST transmite o resultado da solicitação de volta para a aplicação.
+
+
+## Diagrama de Classes da Aplicação
+
+A imagem a seguir, exibe o diagrama de classes para codificar a tarefa
+
+![Diagrama de Classes da Aplicação](./Images/Diagrama_De_Classe.png)
 
 ### Estrutura do diretorio
 
