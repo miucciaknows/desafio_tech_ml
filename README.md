@@ -17,7 +17,7 @@
 
 ### Resumo do Escopo do projeto
 
-Desenvolvimento três endpoints relacionados ao envio de comunicações da empresa: agendamento, consulta e cancelamento.
+Desenvolvimento de três endpoints relacionados ao envio de comunicações da empresa: agendamento, consulta e cancelamento.
 Os agendamentos serão armazenados em um banco de dados e enviados para uma fila de mensagens. As APIs devem seguir o modelo RESTful, utilizar JSON e realizar testes unitários.
 O desenvolvimento será realizado em Python, com suporte para PostgreSQL como banco de dados e RabbitMQ como sistema de mensageria.
 
