@@ -1,3 +1,5 @@
+## Projeto Plataforma Comunicação de Comunicação
+
 - [Projeto Plataforma Comunicação de Comunicação](#projeto-plataforma-comunicação-de-comunicação)
   - [Resumo do Escopo do projeto](#resumo-do-escopo-do-projeto)
   - [Requisitos Funcionais e Não Funcionais do Projeto](#requisitos-funcionais-e-não-funcionais-do-projeto)
@@ -12,8 +14,6 @@
   - [Executando a aplicação no Docker](#executando-a-aplicação-no-docker)
     - [Utilizando o Insomnia para testar a aplicação](#utilizando-o-insomnia-para-testar-a-aplicação)
   - [Teste Unitario da aplicação](#teste-unitario-da-aplicação)
-
-## Projeto Plataforma Comunicação de Comunicação
 
 ### Resumo do Escopo do projeto
 
@@ -36,6 +36,8 @@ Para modelar o banco de dados, foi criadada a tabela nomeada **Agendamento**, co
 - status: TEXT DEFAULT `agendado`
 
 ### Arquitetura
+
+![Requisitos Funcionais e Não Funcionais](./Images/Arquitetura.png)
 
 
 ### Estrutura do diretorio
