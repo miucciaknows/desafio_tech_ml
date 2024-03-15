@@ -39,6 +39,12 @@ Para modelar o banco de dados, foi criadada a tabela nomeada **Agendamento**, co
 
 ![Requisitos Funcionais e Não Funcionais](./Images/Arquitetura.png)
 
+1. A requisição é transmitida para o endpoint (/agendamento, /consulta, /cancelamento).
+2. A API REST encaminha a solicitação para o banco de dados, que pode envolver operações de registro, consulta ou modificação no campo `mensagem`
+3. No banco de dados, se a solicitação envolver um registro, segue-se para o passo 3.b; caso contrário, o fluxo segue para o passo 4.
+    3.b O registro é inserido e então encaminhado para a plataforma de mensageria (por exemplo, RabbitMQ).
+4. O resultado é retornado para a API REST.
+5. A API REST transmite o resultado da solicitação de volta para a aplicação.
 
 ### Estrutura do diretorio
 
