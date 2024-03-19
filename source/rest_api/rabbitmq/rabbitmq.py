@@ -1,29 +1,43 @@
 # Importando a biblioteca necessária usar com RabbitMQ
 import pika
 
+import pika
 
 class RabbitMQ:
-    def rabbitmq_connection(self, rabbitmq_host):
+    def __init__(self, rabbitmq_host):
         """
         Função/Método para estabelecer uma conexão com o servidor RabbitMQ.
 
         Args:
             rabbitmq_host (str): Endereço IP ou nome do host do servidor RabbitMQ.
+        """
+        self.rabbitmq_host = rabbitmq_host
+        self.connection = None
+        self.channel = None
+
+    def connect(self):
+        """
+        Função/Método para estabelecer uma conexão com o servidor RabbitMQ.
 
         Returns:
-            BlockingConnection: Conexão estabelecida com RabbitMQ.
+            pika.BlockingConnection: Conexão estabelecida com RabbitMQ.
         """
         # Retornando uma conexão com RabbitMQ
-        return pika.BlockingConnection(pika.ConnectionParameters(rabbitmq_host))
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(self.rabbitmq_host))
+        return self.connection
 
-
-    def create_queue(self, channel, queue_name):
+    def create_queue(self, queue_name):
         """
         Função/Método para criar uma fila no RabbitMQ.
 
         Args:
-            channel (pika.Channel): Canal para comunicação com RabbitMQ.
             queue_name (str): Nome da fila a ser criada.
         """
+        if self.connection is None:
+            raise Exception("Conexão com o RabbitMQ não estabelecida.")
+
+        # Abrindo um canal
+        self.channel = self.connection.channel()
+
         # Declarando uma fila com o nome fornecido
-        channel.queue_declare(queue=queue_name)
+        self.channel.queue_declare(queue=queue_name)

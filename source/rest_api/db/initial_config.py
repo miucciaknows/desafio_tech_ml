@@ -4,7 +4,7 @@ class InitialDatabaseConfig:
     """
     Configurações iniciais do banco de dados.
     """
-    def create_database_agendamentos(self, conn):
+    def create_communication_table(self, conn):
         """
         Cria a tabela 'agendamentos' no banco de dados.
         """

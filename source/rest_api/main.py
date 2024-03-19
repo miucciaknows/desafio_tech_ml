@@ -1,41 +1,33 @@
-# Importando modulos necesários para o projeto
 from flask import Flask, request, jsonify
 import json
 import pika
 import time
-
-# Importando a classe DatabaseConfig para configurar o banco de dados
 from db.config import DatabaseConfig
-# Importando a classe RabbitMQ para configurar a mensageria
 from rabbitmq.rabbitmq import RabbitMQ
-# Importando o modelo AgendamentoRequest
 from models.request_model import AgendamentoRequest
 
 class CommunicationScheduler:
     """
-    Classe responsável por agendar, consultar e cancelar comunicações.
+    Inicializando a aplicação Flask, configurando o banco de dados e a mensageria,
+    Criando as rotas e definindo os métodos para agendar, consultar e cancelar comunicações.
     """
     def __init__(self):
-        """
-        Inicializando a aplicação Flask, configurando o banco de dados e a mensageria,
-        Criando as rotas e definindo os métodos para agendar, consultar e cancelar comunicações.
-        """
-        # Iniciando a aplicação Flask
+         # Iniciando a aplicação Flask
         self.app = Flask(__name__)
         # Configurando o banco de dados
         self.db_config = DatabaseConfig()
-        # Configurando a mensageria
-        self.rabbitmq = RabbitMQ()
-
-        # Estabelecendo a conexão com o banco de dados e verificando se a tabela de agendamentos existe
-        self.db_connection = self.db_config.data_base_connection()
+         # Configurando a mensageria
+        # Passando o host do RabbitMQ durante a inicialização
+        self.rabbitmq = RabbitMQ('rabbitmq') 
+        # Estabelecendo a conexão com o banco de dados 
+        self.db_connection = self.db_config.connect_to_database()
+        # Verificando se a tabela de agendamentos existe
         self.db_config.verify_table_agendamentos(self.db_connection)
 
         # Estabelecendo a conexão com o RabbitMQ
-        self.rabbitmq_connection = None
-        self.connect_to_rabbitmq()
+        self.rabbitmq_connection = self.connect_to_rabbitmq()
 
-        # Criando as rotas
+        # Configurando rotas
         self.routes()
 
     def connect_to_rabbitmq(self):
@@ -45,8 +37,7 @@ class CommunicationScheduler:
         rabbitmq_host = 'rabbitmq'
         while True:
             try:
-                self.rabbitmq_connection = pika.BlockingConnection(pika.ConnectionParameters(rabbitmq_host))
-                break
+                return pika.BlockingConnection(pika.ConnectionParameters(rabbitmq_host))
             except pika.exceptions.AMQPConnectionError:
                 print("Aguardando conexão com RabbitMQ...")
                 time.sleep(10)
@@ -60,12 +51,12 @@ class CommunicationScheduler:
             """
             Função para Rota para agendar uma comunicação.
             """
+            # Obtendo os dados da solicitação
             try:
-                # Obtendo os dados da solicitação
                 request_data = AgendamentoRequest(**request.json)
             except ValueError as e:
                 return jsonify({'erro': 'Erro de validação: {}'.format(str(e))}), 400
-
+            
             # Inserindo o agendamento no banco de dados
             try:
                 with self.db_connection.cursor() as database_cursor:
@@ -74,7 +65,7 @@ class CommunicationScheduler:
                     self.db_connection.commit()
             except Exception as e:
                 return jsonify({'erro': f"Erro ao inserir agendamento no banco de dados: {e}"}), 500
-
+            
             # Enviando o agendamento para a fila da mensageria
             self.rabbitmq_connection.channel().basic_publish(exchange='',
                                   routing_key='comunicacoes_queue',
@@ -83,22 +74,22 @@ class CommunicationScheduler:
             return jsonify({'mensagem': 'Agendamento realizado com sucesso'}), 201
 
         @self.app.route('/consulta/<destinatario>', methods=['GET'])
-        
         def consultar_comunicacao(destinatario):
             """
             Função para Rota de consultar comunicações por destinatário.
             """
+           # Verificando se existem comunicações para o destinatário especificado
             try:
-                # Verificando se existem comunicações para o destinatário especificado
                 with self.db_connection.cursor() as cur:
                     cur.execute("SELECT * FROM agendamentos WHERE destinatario = %s", (destinatario,))
                     communications_recipient = cur.fetchall()
             except Exception as e:
                 return jsonify({'erro': f"Erro ao consultar comunicação: {e}"}), 500
+            
 
             if not communications_recipient:
                 return jsonify({'mensagem': 'Nenhuma comunicação encontrada para o destinatário'}), 404
-
+            
             # Convertendo as comunicações em um formato de dicionário
             comunicacoes_dict = [{'id': row[0], 'data_hora_envio': row[1], 'destinatario': row[2], 'mensagem': row[3], 'status': row[4]} for row in communications_recipient]
 
@@ -106,9 +97,6 @@ class CommunicationScheduler:
 
         @self.app.route('/cancelamento/<int:id>', methods=['DELETE'])
         def cancelar_comunicacao(id):
-            """
-            Função para Rota de cancelar uma comunicação.
-            """
             try:
                 with self.db_connection.cursor() as database_cursor:
                     database_cursor.execute("SELECT * FROM agendamentos WHERE id = %s", (id,))
@@ -124,15 +112,10 @@ class CommunicationScheduler:
             return jsonify({'mensagem': 'Cancelamento realizado com sucesso'}), 200
 
     def run(self):
-        """
-        Iniciando a aplicação Flask.
-        """
         # Defindo porta 8080
         self.app.run(debug=True, host='0.0.0.0', port=8080)
 
 if __name__ == '__main__':
     # Criando uma instância de CommunicationScheduler
     communication_scheduler = CommunicationScheduler()
-
-    # Executando a aplicação
     communication_scheduler.run()

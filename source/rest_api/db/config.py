@@ -4,22 +4,22 @@ import psycopg2
 import os
 # Importando load_dotenv do módulo dotenv para carregar variáveis de ambiente de um arquivo .env
 from dotenv import load_dotenv
- # Importando a classe InitialDatabaseConfig do módulo db.initial_config
+# Importando a classe InitialDatabaseConfig do módulo db.initial_config
 from db.initial_config import InitialDatabaseConfig
 
 class DatabaseConfig:
     """
-    Configurações relacionadas ao banco de dados.
+    Classe para as Configurações relacionadas ao banco de dados.
     """
     def __init__(self):
         """
-        Metodo para a classe carregar as variáveis de ambiente.
+        Método para a classe carregar as variáveis de ambiente.
         """
         load_dotenv()
 
-    def data_base_connection(self):
+    def connect_to_database(self):
         """
-        Criando e retornando uma conexão com o banco de dados.
+        Função para criar e retornando uma conexão com o banco de dados.
         """
         return psycopg2.connect(
             dbname="postgres",
@@ -31,7 +31,7 @@ class DatabaseConfig:
 
     def verify_table_agendamentos(self, conn):
         """
-        Verificando se a tabela 'agendamentos' existe no banco de dados e a criando caso não exista.
+        Função para verificar se a tabela 'agendamentos' existe no banco de dados e a criando caso não exista.
         """
         try:
             with conn.cursor() as cur:
@@ -39,6 +39,6 @@ class DatabaseConfig:
                 existing_table = cur.fetchone()[0]
                 if not existing_table:
                     initial_config = InitialDatabaseConfig()
-                    initial_config.create_database_agendamentos(conn)
+                    initial_config.create_communication_table(conn)
         except Exception as e:
             raise Exception(f"Erro ao verificar a existência da tabela 'agendamentos': {e}")
