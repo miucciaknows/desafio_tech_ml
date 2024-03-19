@@ -16,10 +16,11 @@
     - [Utilizando o Insomnia para testar a aplicação](#utilizando-o-insomnia-para-testar-a-aplicação)
   - [Teste Unitario da aplicação](#teste-unitario-da-aplicação)
 
+
 ### Resumo do Escopo do projeto
 
 Desenvolvimento de três endpoints relacionados ao envio de comunicações da empresa: agendamento, consulta e cancelamento.
-Os agendamentos serão armazenados em um banco de dados e enviados para uma fila de mensagens. As APIs devem seguir o modelo RESTful, utilizar JSON e realizar testes unitários.
+Os agendamentos serão armazenados em um banco de dados e enviados para uma fila de mensagens.
 O desenvolvimento será realizado em Python, com suporte para PostgreSQL como banco de dados e RabbitMQ como sistema de mensageria.
 
 ### Requisitos Funcionais e Não Funcionais do Projeto
@@ -44,7 +45,7 @@ A imagem a seguir, ilustra o diagrama de classes desenvolvido com base no projet
 
 ### Arquitetura
 
-![Requisitos Funcionais e Não Funcionais](./Images/Arquitetura.png)
+Arquitetura do projeto:
 
 1. A requisição é transmitida para o endpoint (/agendamento, /consulta, /cancelamento).
 2. A API REST encaminha a solicitação para o banco de dados, que pode envolver operações de registro, consulta ou modificação no campo `mensagem`
@@ -53,6 +54,8 @@ A imagem a seguir, ilustra o diagrama de classes desenvolvido com base no projet
 4. O resultado é retornado para a API REST.
 5. A API REST transmite o resultado da solicitação de volta para a aplicação.
 
+![Requisitos Funcionais e Não Funcionais](./Images/Arquitetura.png)
+
 ### Estrutura do diretorio
 
 ```
@@ -60,30 +63,29 @@ A imagem a seguir, ilustra o diagrama de classes desenvolvido com base no projet
 .
 ├── Images # Imagems Utilizadas no README.md deste projeto
 │   ├── Arquitetura.png
-│   ├── Diagrama_De_Classe.png
+│   ├── Diagrama_de_Classes.png
 │   ├── Insomnia01.png
 │   ├── Insomnia02.png
 │   ├── Insomnia03.png
 │   ├── Insomnia04.png
 │   ├── Insomnia05.png
 │   └── RequisitosNFN.png
-├── Insomnia
+├── Insomnia # Arquivo JSON com as rotas para testar essa aplicação
 │   └── Insomnia_2024-03-14.json
-├── READM2E.md
-├── README.md
+├── README.md # Documentação dessa aplicação
 └── source
     └── rest_api
         ├── Dockerfile # Dockerfile do projeto
         ├── db
         │   ├── config.py # Configurações para lidar com o banco de dados
-        │   └── initial_config.py # Configurações para criar uma tabela caso não haja nada no banco de dados
-        ├── docker-compose.yml # Aplicação conternizada
+        │   └── initial_config.py  # Configurações para criar uma tabela caso não exista ainda no banco de dados
+        ├── docker-compose.yml  # Aplicação conternizada
         ├── main.py  # Aplicação 
         ├── models
         │   └── request_model.py # Modelo de dados para representar uma solicitação de agendamento de envio de comunicação.
         ├── rabbitmq
-        │   └── rabbitmq.py # Estabelecendo conexão com o servidor RabbitMQ.
-        ├── requirements.txt # Modulos utilizados no projeto
+        │   └── rabbitmq.py # Conexão com o servidor RabbitMQ.
+        ├── requirements.txt  # Modulos utilizados no projeto
         └── test.py # Arquivo para realizar teste na aplicação
 ```
 
