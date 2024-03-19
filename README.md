@@ -3,6 +3,7 @@
 - [Projeto Plataforma Comunicação de Comunicação](#projeto-plataforma-comunicação-de-comunicação)
   - [Resumo do Escopo do projeto](#resumo-do-escopo-do-projeto)
   - [Requisitos Funcionais e Não Funcionais do Projeto](#requisitos-funcionais-e-não-funcionais-do-projeto)
+  - [Diagrama de Classes](#diagrama-de-classes)
   - [Arquitetura](#arquitetura)
   - [Estrutura do diretorio](#estrutura-do-diretorio)
   - [Configuração do ambiente de desenvolvimento](#configuração-do-ambiente-de-desenvolvimento)
@@ -34,6 +35,12 @@ Para modelar o banco de dados, foi criadada a tabela nomeada **Agendamento**, co
 - destinario:TEXT
 - mensagem: TEXT
 - status: TEXT DEFAULT `agendado`
+
+### Diagrama de Classes
+
+A imagem a seguir, ilustra o diagrama de classes desenvolvido com base no projeto:
+
+![Diagrama de Classes](./Images/Diagrama_de_Classes.png)
 
 ### Arquitetura
 
