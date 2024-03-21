@@ -74,7 +74,7 @@ def consume_messages(rabbitmq):
             body (bytes): Corpo da mensagem.
         """
         print("Mensagem recebida:", body)
-        # Implemente o processamento da mensagem aqui
+        # Implementando o processamento da mensagem 
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
     channel = rabbitmq.get_channel()
