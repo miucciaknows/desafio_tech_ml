@@ -222,4 +222,4 @@ Se tudo ocorrer bem, sua página deverá estar como a seguinte imagem:
 
 Para executar o teste unitario da aplicação é importante que ela esteja rodando no docker para que a aplicação possa se comunicar com o RabbitMQ e o Banco de dados.
 
-Dentro do contexto: ./source/rest_api, execute no seu terminal: `python3 -m unittest test.py` ou `python -m unittest test.py` dependendo da versão de python em sua maquina.
+Dentro do contexto: ./source/rest_api, execute no seu terminal: `python3 -m unittest app_test.py` ou `python -m unittest app_test.py` dependendo da versão de python em sua maquina.
