@@ -1,11 +1,11 @@
-# Importando biblioteca o psycopg2 para trabalhar com PostgreSQL
-import psycopg2
-# Importando os para acessar variáveis de ambiente
+# importando as bibliotecas necessárias 
 import os
+import psycopg2
 # Importando load_dotenv do módulo dotenv para carregar variáveis de ambiente de um arquivo .env
 from dotenv import load_dotenv
 # Importando a classe InitialDatabaseConfig do módulo db.initial_config
 from db.initial_config import InitialDatabaseConfig
+
 
 class DatabaseConfig:
     """

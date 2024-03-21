@@ -1,12 +1,10 @@
-import psycopg2
-
 class InitialDatabaseConfig:
     """
     Configurações iniciais do banco de dados.
     """
     def create_communication_table(self, conn):
         """
-        Cria a tabela 'agendamentos' no banco de dados.
+        Cria a tabela "agendamentos" no banco de dados.
         """
         try:
             with conn.cursor() as database_cursor:
@@ -20,6 +18,6 @@ class InitialDatabaseConfig:
                     )
                 """)
                 conn.commit()
-                print("Tabela 'agendamentos' criada com sucesso.")
+                print("A Tabela 'agendamentos' foi criada com sucesso.")
         except Exception as e:
             raise Exception(f"Erro ao criar tabela 'agendamentos': {e}")

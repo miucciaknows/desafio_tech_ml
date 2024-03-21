@@ -1,5 +1,4 @@
 #Importando a classe BaseModel da biblioteca pydantic
-
 from pydantic import BaseModel
 
 class AgendamentoRequest(BaseModel):
