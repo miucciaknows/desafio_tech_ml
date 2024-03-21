@@ -1,10 +1,8 @@
-#Importando a classe BaseModel da biblioteca pydantic
-from pydantic import BaseModel
+from dataclasses import dataclass
 
-class AgendamentoRequest(BaseModel):
-    """
-    Modelo de dados para representar uma solicitação de agendamento de envio de comunicação.
-    """
+@dataclass
+class AgendamentoRequest:
+    """Modelo de dados para representar uma solicitação de agendamento de envio de comunicação."""
     # Data e hora para o envio da comunicação (string)
     data_hora_envio: str
     # Destinatário da comunicação (string)
