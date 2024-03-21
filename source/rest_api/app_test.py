@@ -4,7 +4,7 @@ import json
 from db.config import DatabaseConfig
 
 class TestCommunicationScheduler(unittest.TestCase):
-    " Classe de teste para a aplicação do arquivo main.py"
+    "Classe de teste para a aplicação do arquivo main.py"
     def setUp(self):
         """
         Configuração inicial para os testes.
