@@ -91,7 +91,7 @@ class CommunicationScheduler:
                         'status': 'agendado' 
                     }
 
-                    # Enviar a mensagem para a fila 
+                    # Enviando a mensagem para a fila 
                     self.enviar_para_fila(mensagem, database_id)
 
             except Exception as e:
