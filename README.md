@@ -41,7 +41,7 @@ Para modelar o banco de dados, foi criadada a tabela nomeada **Agendamento**, co
 
 A imagem a seguir, ilustra o diagrama de classes desenvolvido com base nesse projeto:
 
-![Diagrama de Classe](./Images/Diagrama_De_Classes.png)
+![Diagrama de Classe](./Images/Diagrama_Classes.png)
 
 ### Arquitetura
 
